@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notes.HUB - Quiz Game</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="quiz.css">
+</head>
+<body>
+  <div class="config-container">
+    <h2 class="config-title">Quiz Game</h2>
+
+    <div class="config-option">
+      <h4 class="option-title">Select Topic</h4>
+      <div class="category-options">
+        <button class="category-option">programming</button>
+        <button class="category-option">geography</button>
+        <button class="category-option">mathematics</button>
+        <button class="category-option">entertainment</button>
+      </div>
+    </div>
+
+    <div class="config-option">
+      <h4 class="option-title">No. Of Questions</h4>
+      <div class="category-options">
+        <button class="category-option" id="num">5</button>
+        <button class="category-option" id="num">10</button>
+        <button class="category-option" id="num">15</button>
+        <button class="category-option" id="num">20</button>
+      </div>
+    </div>
+
+    <center><button class="start-quiz-btn">Start Quiz</button></center>
+  </div>
+
+  <div class="quiz-container">
+    <header class="quiz-header">
+      <h2 class="quiz-title">MCQ's</h2>
+      <div class="quiz-timer">
+        <i class="fa-regular fa-clock"></i>
+        <p class="time-duration">15s</p>
+      </div>
+    </header>
+
+    <div class="quiz-content">
+      <h1 class="question-text">Full form of CSS?</h1>
+      <ul class="answer-options">
+        <li class="answer-option">
+        <p>Cast Style Sheet</p>
+        </li>
+        <li class="answer-option correct">
+          <p>Cascading Style Sheet</p>
+          <i class="fa-regular fa-circle-check"></i>
+        </li>
+        <li class="answer-option incorrect">
+          <p>Cascading Styling Sheet</p>
+          <i class="fa-regular fa-circle-xmark"></i>
+        </li>
+        <li class="answer-option">
+          <p>Cascade Style Sheet</p>
+        </li>
+      </ul>
+    </div>
+
+    <div class="quiz-footer">
+      <p class="question-status">
+        <b>2</b> of <b>10</b> Questions
+      </p>
+      <button class="next-question-btn"> 
+         Next
+         <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- result -->
+   <div class="result-container">
+    <center><img src="https://media.gettyimages.com/id/1209946368/vector/confetti-and-party-popper-icon-flat-design-on-white-background.jpg?s=612x612&w=0&k=20&c=h4XFBVAHSNXsdcmmxHAoLWoTI03gIy2fYfK7fkFvxk0=" alt="" class="result-img"></center>
+  <center><h2 class="result-title">Quiz Completed!</h2></center>
+  <center><p class="result-message">You answered <b>5</b> out of <b>5</b> questions correctly.Great effort!</p></center>
+  <center><button class="try-again-btn">Try again <i class="fa-solid fa-rotate-right"></i></button></center>
+   </div>
+  <script src="quiz.js"></script>
+  <script src="questions.js"></script>
+</body>
+</html>

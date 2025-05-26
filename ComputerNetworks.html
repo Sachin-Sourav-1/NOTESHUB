@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Computer Networks Quiz</title>
+    <link rel="stylesheet" href="Quizstyles.css">
+</head>
+<body>
+    <div id="quiz-container" class="container">
+        <h1 id="quiz-title">Computer Networks Quiz</h1>
+        <div id="timer" class="timer">
+            <div class="timer-bar-container">
+                <div id="timer-bar" class="timer-bar"></div>
+            </div>
+            <p id="time-left" class="time-left">15 seconds remaining</p>
+        </div>
+        <div id="question-container">
+            <h2 id="question"></h2>
+            <div id="options" class="options"></div>
+        </div>
+        <button id="next-btn" class="next-btn" disabled>Next</button>
+    </div>
+
+    <div id="result-container" class="container hidden">
+        <h1>Quiz Results</h1>
+        <p id="score" class="score"></p>
+        <a href="index.html" class="restart-btn">Back to Topics</a>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "What does TCP stand for in networking?",
+                options: ["Transmission Control Protocol", "Transfer Control Process", "Terminal Control Protocol", "Transport Communication Protocol"],
+                answer: "Transmission Control Protocol"
+            },
+            {
+                question: "Which layer of the OSI model handles data link control?",
+                options: ["Physical Layer", "Data Link Layer", "Network Layer", "Transport Layer"],
+                answer: "Data Link Layer"
+            },
+            {
+                question: "What is the purpose of an IP address?",
+                options: ["Identify a device on a network", "Encrypt data", "Store data packets", "Manage bandwidth"],
+                answer: "Identify a device on a network"
+            },
+            {
+                question: "What does TCP stand for in networking?",
+                options: ["Transmission Control Protocol", "Transfer Control Process", "Terminal Control Protocol", "Transport Communication Protocol"],
+                answer: "Transmission Control Protocol"
+            },
+            {
+                question: "Which layer of the OSI model handles data link control?",
+                options: ["Physical Layer", "Data Link Layer", "Network Layer", "Transport Layer"],
+                answer: "Data Link Layer"
+            },
+            {
+                question: "What is the purpose of an IP address?",
+                options: ["Identify a device on a network", "Encrypt data", "Store data packets", "Manage bandwidth"],
+                answer: "Identify a device on a network"
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let timer;
+        let timeLeft = 15;
+
+        const quizContainer = document.getElementById('quiz-container');
+        const resultContainer = document.getElementById('result-container');
+        const questionElement = document.getElementById('question');
+        const optionsElement = document.getElementById('options');
+        const nextButton = document.getElementById('next-btn');
+        const scoreElement = document.getElementById('score');
+        const timerBar = document.getElementById('timer-bar');
+        const timeLeftElement = document.getElementById('time-left');
+
+        function startQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            quizContainer.classList.remove('hidden');
+            resultContainer.classList.add('hidden');
+            showQuestion();
+        }
+
+        function showQuestion() {
+            resetState();
+            const currentQuestion = questions[currentQuestionIndex];
+            questionElement.textContent = `${currentQuestionIndex + 1}. ${currentQuestion.question}`;
+            currentQuestion.options.forEach(option => {
+                const button = document.createElement('button');
+                button.textContent = option;
+                button.classList.add('option-btn');
+                button.addEventListener('click', () => selectOption(option, button));
+                optionsElement.appendChild(button);
+            });
+            startTimer();
+        }
+
+        function resetState() {
+            nextButton.disabled = true;
+            while (optionsElement.firstChild) {
+                optionsElement.removeChild(optionsElement.firstChild);
+            }
+            clearInterval(timer);
+            timeLeft = 15;
+            timerBar.style.width = '100%';
+            timeLeftElement.textContent = `${timeLeft} seconds remaining`;
+        }
+
+        function startTimer() {
+            timer = setInterval(() => {
+                timeLeft -= 0.1;
+                timerBar.style.width = `${(timeLeft / 15) * 100}%`;
+                timeLeftElement.textContent = `${Math.ceil(timeLeft)} seconds remaining`;
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    selectOption(null);
+                }
+            }, 100);
+        }
+
+        function selectOption(selectedOption, button) {
+            clearInterval(timer);
+            nextButton.disabled = false;
+            const currentQuestion = questions[currentQuestionIndex];
+            if (button) {
+                document.querySelectorAll('.option-btn').forEach(btn => {
+                    btn.disabled = true;
+                    if (btn.textContent === currentQuestion.answer) {
+                        btn.classList.add('correct');
+                    } else if (btn === button && selectedOption !== currentQuestion.answer) {
+                        btn.classList.add('incorrect');
+                    }
+                });
+                button.classList.add('selected');
+            }
+            if (selectedOption && selectedOption === currentQuestion.answer) {
+                score++;
+            }
+        }
+
+        function showNextQuestion() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                showQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            clearInterval(timer);
+            quizContainer.classList.add('hidden');
+            resultContainer.classList.remove('hidden');
+            scoreElement.textContent = `You scored ${score} out of ${questions.length}!`;
+        }
+
+        nextButton.addEventListener('click', showNextQuestion);
+
+        startQuiz();
+    </script>
+</body>
+</html>
