@@ -159,7 +159,7 @@ nav #part3 button .animate__shakeX {
   /* border-bottom: 2px solid rgb(228, 228, 228); */
 }
 
-@media screen and (max-width : 430px) {
+@media screen and (max-width : 480px) {
 body{
   width: 100vw;
 }
@@ -205,3 +205,4 @@ body{
     display: none;
   }
 }
+

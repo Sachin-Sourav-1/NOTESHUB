@@ -263,7 +263,7 @@ marquee{
   margin-left: 20vw;
 }
 
-@media screen and (max-width : 430px) {
+@media screen and (max-width : 480px) {
   .page1 .main h1{
     font-size: 2.5rem;
   }
